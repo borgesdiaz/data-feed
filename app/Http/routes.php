@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace' => 'Pages'], function() {
+    Route::group(['namespace' => 'Main'], function() {
+        Route::get('test', 'HomeController@index');
+    });
+    
+    Route::group(['namespace' => 'Admin'], function() {
+        
+    });
 });
+

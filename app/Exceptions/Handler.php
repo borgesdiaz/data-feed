@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use App\Exceptions;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -33,7 +34,22 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        parent::report($e);
+        switch($e) {
+            case ($e instanceof NotFoundException):
+                //
+                break;
+            case ($e instanceof NotCreatedException):
+                //
+                break;
+            case ($e instanceof NotUpdatedException):
+                //
+                break;
+            case ($e instanceof NotDeletedException):
+                //
+                break;
+            default:
+                parent::report($e);
+        }
     }
 
     /**
@@ -45,6 +61,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+        switch($e) {
+            case ($e instanceof NotFoundException):
+                break;
+            case ($e instanceof NotCreatedException):
+                //
+                break;
+            case ($e instanceof NotUpdatedException):
+                //
+                break;
+            case ($e instanceof NotDeletedException):
+                //
+                break;
+            default:
+                return parent::render($request, $e);
+        }
     }
 }
