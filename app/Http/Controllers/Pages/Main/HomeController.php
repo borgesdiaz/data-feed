@@ -10,6 +10,6 @@ class HomeController extends MainPageController
     
     public function index() {
         
-        return View::make('welcome');
+        return View::make('main.index');
     }
 }
