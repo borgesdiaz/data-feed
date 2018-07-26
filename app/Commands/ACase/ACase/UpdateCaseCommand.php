@@ -10,8 +10,11 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Repositories\ACase\CasesRepository;
 use App\Repositories\ACase\CategoriesRepository;
 use App\Repositories\Shared\DescriptionsRepository;
+use App\Repositories\User\UsersRepository;
 use App\Exceptions\ACase\ACase\CaseNotFoundException;
 use App\Exceptions\ACase\Category\CategoryNotFoundException;
+use App\Exceptions\User\User\UserNotFoundException;
+use App\Exceptions\User\User\UserNotOwnCaseException;
 use App\Models\Shared\Description;
 
 class UpdateCaseCommand extends Command implements SelfHandling
@@ -66,8 +69,15 @@ class UpdateCaseCommand extends Command implements SelfHandling
      */
     public function handle(CasesRepository $casesRepository,
                            CategoriesRepository $categoriesRepository,
-                           DescriptionsRepository $descriptionsRepository)
+                           DescriptionsRepository $descriptionsRepository,
+                           UsersRepository $usersRepository)
     {
+        $user = $usersRepository->getById($this->userId);
+
+        if (!$user) {
+            throw new UserNotFoundException;
+        }
+        
         $case = $casesRepository->getById($this->caseId);
 
         if (!$case) {
@@ -78,6 +88,12 @@ class UpdateCaseCommand extends Command implements SelfHandling
 
         if (!$category) {
             throw new CategoryNotFoundException;
+        }
+        
+        $userOwnsCase = ($user->id === $case->user->id) ? true : false;
+        
+        if (!$userOwnsCase) {
+            throw new UserNotOwnCaseException;
         }
         
         if ($this->description) {
