@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\User;
 
-use App\User;
+use App\Models\User\User;
 
-class UserRepository
+class UsersRepositoryRepository
 {
     public function create(User $user) {
         return $user->save();
