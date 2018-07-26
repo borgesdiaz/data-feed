@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMysteriesTable extends Migration
+class CreateTheoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateMysteriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mysteries', function (Blueprint $table) {
+        Schema::create('theories', function (Blueprint $table) {
             $table->increments('id');
             
             $table->integer('hypothesis_id')->unsigned();
@@ -36,6 +36,6 @@ class CreateMysteriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('mysteries');
+        Schema::drop('theories');
     }
 }
