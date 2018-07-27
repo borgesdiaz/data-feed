@@ -10,14 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
 
-Route::group(['namespace' => 'Pages'], function() {
-    Route::group(['namespace' => 'Main'], function() {
-        Route::get('test', 'HomeController@index');
-    });
-    
-    Route::group(['namespace' => 'Admin'], function() {
-        
-    });
-});
-
+include 'Routes/pages.php';
+include 'Routes/partials.php';
+include 'Routes/api.php';
