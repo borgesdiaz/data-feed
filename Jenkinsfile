@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                php --version
+                php '--version'
             }
         }
     }
